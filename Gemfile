@@ -18,6 +18,7 @@ gem "rubyzip", "~> 1.3"
 gem "symmetric-encryption"
 gem "zip_tricks"
 
-group :development do
+group :development, :test do
   gem "rubocop"
+  gem "simplecov", require: false
 end

@@ -1,3 +1,26 @@
+# SimpleCov must be loaded before application code
+if ENV["COVERAGE"] || ENV["CI"]
+  require "simplecov"
+  SimpleCov.start do
+    # Add groups to organize coverage report
+    add_group "Core", "lib/io_streams"
+    add_group "Paths", "lib/io_streams/paths"
+    add_group "Tabular", "lib/io_streams/tabular"
+
+    # Filter out files we don't want in coverage
+    add_filter "/test/"
+    add_filter "/vendor/"
+    add_filter "version.rb"
+
+    # Set minimum coverage threshold
+    minimum_coverage 80
+    minimum_coverage_by_file 60
+
+    # Track branches for more detailed coverage
+    enable_coverage :branch if respond_to?(:enable_coverage)
+  end
+end
+
 $LOAD_PATH.unshift File.dirname(__FILE__) + "/../lib"
 
 require "yaml"
